@@ -1,0 +1,86 @@
+.container {
+  min-height: 100vh;
+  padding: 0 50px; /* Adjust as needed for overall padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Aligns content to the top */
+}
+
+.main {
+  width: 100%; /* Ensures the main content takes full width */
+}
+
+.gameBoard {
+  display: grid;
+  grid-template-rows: 32px auto 1fr; /* Fixed height for the first row, adjustable for the second, and the rest for the third */
+  gap: 20px; /* Margin between rows */
+  width: 100%;
+}
+
+.commandRow,
+.gameRow,
+.tableau {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px; /* Margin between columns */
+}
+
+.shuffleButton {
+  grid-column: 1 / -1; /* Makes the button stretch across all columns */
+}
+
+.stock,
+.waste,
+.foundation,
+.tableauPile,
+.empty {
+  border: 1px solid black;
+  border-radius: 4px;
+  min-height: 96px; /* Second row height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableauPile {
+  min-height: calc(100vh - 200px); /* Adjusts based on the remaining height */
+}
+
+.stockContainer {
+  /* position: relative; */
+
+  width: fit-content; /* Adjust based on your card size */
+  height: fit-content; /* Adjust based on your card size */
+}
+.stockCard {
+  position: absolute;
+  margin-left: 8px;
+  top: 54px;
+}
+.card img {
+  width: 72px; /* or any size that fits your layout */
+  height: 96px;
+  border: 1px solid #000; /* Optional: adds a border around the card */
+  border-radius: 4px; /* Optional: rounds the corners of the card */
+}
+
+/* Assuming this is in styles/Home.module.css or a similar file */
+.tableauContainer {
+  position: relative;
+
+  height: fit-content; /* Adjust based on the number of cards */
+  margin: 10px; /* Or any suitable margin */
+}
+
+.tableauCard {
+  position: absolute;
+  width: 72px; /* or any size that fits your layout */
+  height: 96px;
+  margin-top: 196px; /* Vertical offset for stacking cards */
+}
+
+.foundationCard {
+  width: 72px; /* or any size that fits your layout */
+  height: 96px;
+}
