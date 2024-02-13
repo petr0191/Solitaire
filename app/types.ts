@@ -20,3 +20,7 @@ export enum CardValue {
   Queen = "Queen",
   King = "King",
 }
+
+export const DragItemTypes = {
+  CARD: "card",
+};

@@ -11,7 +11,7 @@ export default function StockPile() {
     <div className={styles.stockContainer}>
       {stock.map((card, index) => (
         <div
-          key={index}
+          key={`${card.suit}-${card.value}`}
           className={styles.stockCard}
           style={{ left: `${index}px` }}
         >

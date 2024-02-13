@@ -12,7 +12,10 @@ export default function Foundation({ index }: FoundationProps) {
   return (
     <div className={styles.foundation}>
       {cards.map((card, index) => (
-        <div key={index} className={styles.foundationCard}>
+        <div
+          key={`${card.suit}-${card.value}`}
+          className={styles.foundationCard}
+        >
           <Card card={card} />
         </div>
       ))}
