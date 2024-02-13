@@ -98,3 +98,32 @@ export function getCardValue(value: CardValue): number {
   }
   return 0;
 }
+
+export function isAlternateColor(card: DeckCard, lastCard: DeckCard) {
+  if (card.suit === Suit.Diamonds || card.suit === Suit.Hearts) {
+    return lastCard.suit === Suit.Clubs || lastCard.suit === Suit.Spades;
+  }
+  if (card.suit === Suit.Clubs || card.suit === Suit.Spades) {
+    return lastCard.suit === Suit.Hearts || lastCard.suit === Suit.Diamonds;
+  }
+
+  return false;
+}
+
+export function isOneLower(card: DeckCard, lastCard: DeckCard) {
+  console.log(card, "source");
+  console.log(lastCard, "lastCard");
+  console.log(getCardValue(card.value) + 1 === getCardValue(lastCard.value));
+  console.log(getCardValue(card.value) + 1);
+  console.log(getCardValue(lastCard.value));
+  return getCardValue(card.value) + 1 === getCardValue(lastCard.value);
+}
+
+export function canDropOnTableau(card: DeckCard, tableauStack: DeckCard[]) {
+  console.log(tableauStack);
+  if (tableauStack.length === 0) {
+    return card.value === CardValue.King;
+  }
+  const lastCard = tableauStack[tableauStack.length - 1];
+  return isOneLower(card, lastCard) && isAlternateColor(card, lastCard);
+}
