@@ -17,6 +17,7 @@ interface SolitaireStore {
   attemptStack: (card: DeckCard, tableauIndex: number) => void;
   dropOnTableau: (card: DeckCard, destinationTableauIndex: number) => void;
   showAllCards: () => void;
+  flipStockCards: () => void;
 }
 
 const useSolitaireStore = create<SolitaireStore>()((set, get) => ({
@@ -97,44 +98,71 @@ const useSolitaireStore = create<SolitaireStore>()((set, get) => ({
     const sourceTableauIndex = get().tableau.findIndex((t) =>
       t.find((c) => c.suit === card.suit && c.value === card.value)
     );
+    const sourceWasteIndex = get().waste.findIndex(
+      (c) => c.suit === card.suit && c.value === card.value
+    );
     if (
-      sourceTableauIndex === -1 ||
+      (sourceTableauIndex === -1 && sourceWasteIndex === -1) ||
       sourceTableauIndex === destinationTableauIndex
     ) {
       return;
     }
-
-    const sourceStackIndex = get().tableau[sourceTableauIndex].findIndex(
-      (c) => c.suit === card.suit && c.value === card.value
-    );
     const destinationTableauStack = [...get().tableau[destinationTableauIndex]];
-    const sourceTableauStack = [...get().tableau[sourceTableauIndex]];
-    if (!canDropOnTableau(card, destinationTableauStack)) {
-      return;
+    if (sourceTableauIndex !== -1) {
+      const sourceStackIndex = get().tableau[sourceTableauIndex].findIndex(
+        (c) => c.suit === card.suit && c.value === card.value
+      );
+
+      const sourceTableauStack = [...get().tableau[sourceTableauIndex]];
+      if (!canDropOnTableau(card, destinationTableauStack)) {
+        return;
+      }
+
+      const cardsToMove = sourceTableauStack.splice(sourceStackIndex);
+      destinationTableauStack.push(...cardsToMove);
+      console.log(destinationTableauIndex);
+      console.log(sourceTableauIndex);
+      console.log(sourceStackIndex);
+
+      if (sourceTableauStack.length > 0) {
+        console.log("moved");
+        sourceTableauStack[sourceTableauStack.length - 1].discovered = true;
+        console.log(sourceTableauStack[sourceTableauStack.length - 1]);
+      }
+
+      set((state) => ({
+        tableau: state.tableau.map((stack, index) => {
+          if (index === sourceTableauIndex) {
+            return sourceTableauStack;
+          } else if (index === destinationTableauIndex) {
+            return destinationTableauStack;
+          }
+          return stack;
+        }),
+      }));
     }
 
-    const cardsToMove = sourceTableauStack.splice(sourceStackIndex);
-    destinationTableauStack.push(...cardsToMove);
-    console.log(destinationTableauIndex);
-    console.log(sourceTableauIndex);
-    console.log(sourceStackIndex);
+    if (sourceWasteIndex !== -1) {
+      if (sourceWasteIndex !== get().waste.length - 1) {
+        console.log("Waste can only move last card");
+        return;
+      }
 
-    if (sourceTableauStack.length > 0) {
-      console.log("moved");
-      sourceTableauStack[sourceTableauStack.length - 1].discovered = true;
-      console.log(sourceTableauStack[sourceTableauStack.length - 1]);
+      const cardToMove = get().waste[sourceWasteIndex];
+      destinationTableauStack.push(cardToMove);
+
+      set((state) => ({
+        waste: [...state.waste.slice(0, -1)],
+        tableau: state.tableau.map((stack, index) => {
+          if (index === sourceTableauIndex) {
+            return state.tableau[index];
+          } else if (index === destinationTableauIndex) {
+            return destinationTableauStack;
+          }
+          return stack;
+        }),
+      }));
     }
-
-    set((state) => ({
-      tableau: state.tableau.map((stack, index) => {
-        if (index === sourceTableauIndex) {
-          return sourceTableauStack;
-        } else if (index === destinationTableauIndex) {
-          return destinationTableauStack;
-        }
-        return stack;
-      }),
-    }));
   },
   showAllCards: () => {
     set((state) => ({
@@ -144,6 +172,22 @@ const useSolitaireStore = create<SolitaireStore>()((set, get) => ({
           discovered: true,
         }));
       }),
+    }));
+  },
+  flipStockCards: () => {
+    const stock = [...get().stock];
+    const cardsToMove: DeckCard[] = [];
+    while (stock.length > 0 && cardsToMove.length < 3) {
+      const card = stock.pop();
+      if (card) {
+        cardsToMove.push({ ...card, discovered: true });
+      }
+    }
+
+    console.log(stock);
+    set((state) => ({
+      stock: [...stock],
+      waste: [...state.waste, ...cardsToMove],
     }));
   },
 }));

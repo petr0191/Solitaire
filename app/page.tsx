@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Foundation from "./foundation";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import WastePile from "./waste";
 
 export default function Home() {
   const newGame = useSolitaireStore((state) => state.newGame);
@@ -39,7 +40,9 @@ export default function Home() {
             <div className={styles.stock}>
               <StockPile />
             </div>
-            <div className={styles.waste}>Waste 1</div>
+            <div className={styles.waste}>
+              <WastePile />
+            </div>
             <div className={styles.empty}></div>
 
             {Array.from({ length: 4 }).map((_, index) => (

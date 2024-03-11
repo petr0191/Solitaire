@@ -58,6 +58,11 @@
   margin-left: 8px;
   top: 54px;
 }
+.wasteCard {
+  position: absolute;
+  margin-left: 224px;
+  top: 54px;
+}
 .card img {
   width: 72px; /* or any size that fits your layout */
   height: 96px;
@@ -83,4 +88,5 @@
 .foundationCard {
   width: 72px; /* or any size that fits your layout */
   height: 96px;
+  position: absolute;
 }
