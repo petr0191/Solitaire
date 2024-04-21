@@ -27,7 +27,15 @@
 }
 
 .shuffleButton {
-  grid-column: 1 / -1; /* Makes the button stretch across all columns */
+  grid-column: 1 / 1;
+}
+
+.vegasButton {
+  grid-column: 2 / 2;
+}
+
+.showButton {
+  grid-column: 3 / 3;
 }
 
 .stock,
@@ -35,7 +43,7 @@
 .foundation,
 .tableauPile,
 .empty {
-  border: 1px solid black;
+  border: 2px solid #3cb371;
   border-radius: 4px;
   min-height: 96px; /* Second row height */
   display: flex;

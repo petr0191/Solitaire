@@ -26,7 +26,7 @@ export default function TableauPile({ index }: TableauPileProps) {
     <div
       className={styles.tableauPile}
       ref={drop}
-      style={{ backgroundColor: isOver ? "yellow" : "Background" }}
+      style={{ borderColor: isOver ? "yellow" : "#3CB371" }}
     >
       {cards.map((card, index) => (
         <div
