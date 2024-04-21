@@ -47,6 +47,11 @@ export default function Home() {
                 Tell us what you think!
               </a>
             </h4>
+            <h4>
+              <a href="https://www.surveymonkey.com/s/YYMVXZ8" target="_blank">
+                Report an issue...
+              </a>
+            </h4>
           </div>
 
           {/* Second Row for stock, waste, and foundations */}
