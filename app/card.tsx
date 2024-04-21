@@ -23,7 +23,7 @@ interface CardProps {
 export default function Card({ card }: CardProps) {
   const imageName = `${card.value.toLowerCase()}_of_${getSuit(
     card.suit
-  ).toLowerCase()}`;
+  ).toLowerCase()}.png`;
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: DragItemTypes.CARD,
