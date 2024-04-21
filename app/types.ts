@@ -21,6 +21,8 @@ export enum CardValue {
   King = "King",
 }
 
+export type GameMode = "Normal" | "Vegas";
+
 export const DragItemTypes = {
   CARD: "card",
 };

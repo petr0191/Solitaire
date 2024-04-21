@@ -27,7 +27,15 @@
 }
 
 .shuffleButton {
-  grid-column: 1 / -1; /* Makes the button stretch across all columns */
+  grid-column: 1 / 1;
+}
+
+.vegasButton {
+  grid-column: 2 / 2;
+}
+
+.showButton {
+  grid-column: 3 / 3;
 }
 
 .stock,
@@ -35,7 +43,7 @@
 .foundation,
 .tableauPile,
 .empty {
-  border: 1px solid black;
+  border: 2px solid #3cb371;
   border-radius: 4px;
   min-height: 96px; /* Second row height */
   display: flex;
@@ -56,6 +64,11 @@
 .stockCard {
   position: absolute;
   margin-left: 8px;
+  top: 54px;
+}
+.wasteCard {
+  position: absolute;
+  margin-left: 224px;
   top: 54px;
 }
 .card img {
@@ -83,4 +96,5 @@
 .foundationCard {
   width: 72px; /* or any size that fits your layout */
   height: 96px;
+  position: absolute;
 }

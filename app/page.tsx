@@ -8,14 +8,17 @@ import { useEffect } from "react";
 import Foundation from "./foundation";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import WastePile from "./waste";
 
 export default function Home() {
   const newGame = useSolitaireStore((state) => state.newGame);
+  const newVegasGame = useSolitaireStore((state) => state.newVegasGame);
   const showAllCards = useSolitaireStore((state) => state.showAllCards);
+  const score = useSolitaireStore((state) => state.score);
 
-  useEffect(() => {
-    newGame();
-  }, []);
+  // useEffect(() => {
+  //   newGame();
+  // }, []);
 
   return (
     <main className={styles.main}>
@@ -24,14 +27,26 @@ export default function Home() {
           {/* Command Row */}
           <div className={styles.commandRow}>
             <button className={styles.shuffleButton} onClick={() => newGame()}>
-              Shuffle
+              New Game
             </button>
             <button
-              className={styles.shuffleButton}
+              className={styles.vegasButton}
+              onClick={() => newVegasGame()}
+            >
+              New Vegas Game
+            </button>
+            <button
+              className={styles.showButton}
               onClick={() => showAllCards()}
             >
               Show all cards
             </button>
+            <h4>Score: {score}</h4>
+            <h4>
+              <a href="https://www.surveymonkey.com/s/FX98WGZ" target="_blank">
+                Tell us what you think!
+              </a>
+            </h4>
           </div>
 
           {/* Second Row for stock, waste, and foundations */}
@@ -39,7 +54,9 @@ export default function Home() {
             <div className={styles.stock}>
               <StockPile />
             </div>
-            <div className={styles.waste}>Waste 1</div>
+            <div className={styles.waste}>
+              <WastePile />
+            </div>
             <div className={styles.empty}></div>
 
             {Array.from({ length: 4 }).map((_, index) => (
